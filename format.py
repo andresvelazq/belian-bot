@@ -2,6 +2,7 @@ import json
 import os
 
 def addCharacter(name, stats, server):
+    """Creates JSON file for server if none, adds character if not already added"""
     mods = []
     for stat in range(len(stats)):
         stats[stat] = int(stats[stat])
@@ -56,6 +57,7 @@ def addCharacter(name, stats, server):
         with open(f'.\\servers\\{server}.json') as f:
             characters = json.load(f)
 
+    # duplicate check
     for c in characters:
         if c["name"] == character["name"]:
             return False

@@ -31,7 +31,8 @@ async def on_ready():
     description="Add your character",
     guilds=[discord.Object(id=settings.BOT_TESTER)]
 )
-async def create_character(interaction, name: str, str: str, dex: str, con: str, int: str, wis: str, cha: str):
+async def create_character(interaction: discord.Interaction, name: str, str: str, dex: str, con: str, int: str, wis: str, cha: str):
+    """Adds a unique character using a slash command"""
     stats = [str, dex, con, int, wis, cha]
     if not verify.verifyStats(stats):
         await interaction.response.send_message(f"Invalid stats, everyone point and laugh at <@{interaction.user.id}>.")
@@ -48,8 +49,8 @@ async def create_character(interaction, name: str, str: str, dex: str, con: str,
     description="Just a little test to make sure things are ok",
     guilds=[discord.Object(id=settings.BOT_TESTER)]
 )
-async def test(interaction):
-    
+async def test(interaction: discord.Interaction):
+    """Placeholder command to test functionality before implementing"""
     print("Yes, that worked.")
 
 
