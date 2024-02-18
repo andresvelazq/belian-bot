@@ -8,9 +8,9 @@ Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.h
 - Character creation and storage
 - Update saves
 - Update stats
+- Update proficiencies
 
 ### Planned
-- ==Update command for ~~stat changes and~~ proficiencies==
 - Add hp value
 - Saving throws for each stat
 - Add attacks/weapons
