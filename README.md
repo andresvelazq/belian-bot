@@ -17,5 +17,4 @@ Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.h
 - Add attacks/weapons
 - Show player the character stats
 - Hide character sheet from players that don't have permission
-- Organize files and commands
 - Change storage to database instead of json files
