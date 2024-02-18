@@ -45,13 +45,49 @@ async def create_character(interaction: discord.Interaction, name: str, str: str
 
 
 @tree.command(
+        name="updatesaves",
+        description="Update saving throws from the default value",
+        guilds=[discord.Object(id=settings.BOT_TESTER)]
+)
+async def update_saves(interaction: discord.Interaction, name: str, str: str, dex: str, con: str, int: str, wis: str, cha: str):
+    """Updates the saving throw values in the character's information"""
+    saves = [str, dex, con, int, wis, cha]
+    if not verify.verifyStats(saves):
+        await interaction.response.send_message("Those aren't even numbers...")
+        return
+    else:
+        if format.updateSaves(name, saves, interaction.guild.name):
+            await interaction.response.send_message(f"{name}'s saves have been updated")
+        else:
+            await interaction.response.send_message(f"Please create {name} first.")
+
+
+@tree.command(
+    name="updatestats",
+    description="Update stats of a character",
+    guilds=[discord.Object(id=settings.BOT_TESTER)]
+)
+async def update_stats(interaction: discord.Interaction, name: str, str: str, dex: str, con: str, int: str, wis: str, cha: str):
+    """Updates a character's stats"""
+    stats = [str, dex, con, int, wis, cha]
+    if not verify.verifyStats(stats):
+        await interaction.response.send_message("Those aren't even numbers...")
+        return
+    else:
+        if format.updateStats(name, stats, interaction.guild.name):
+            await interaction.response.send_message(f"{name}'s stats have been updated")
+        else:
+            await interaction.response.send_message(f"Please create {name} first.")
+
+@tree.command(
     name="test",
     description="Just a little test to make sure things are ok",
     guilds=[discord.Object(id=settings.BOT_TESTER)]
 )
 async def test(interaction: discord.Interaction):
     """Placeholder command to test functionality before implementing"""
-    print("Yes, that worked.")
+    print("Received.")
+    await interaction.response.send_message('Active.')
 
 
 client.run(settings.DISCORD_TOKEN)

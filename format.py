@@ -1,9 +1,10 @@
 import json
 import os
 
-def addCharacter(name, stats, server):
+def addCharacter(name: str, stats: list[str], server: str) -> bool:
     """Creates JSON file for server if none, adds character if not already added"""
     mods = []
+    # convert stats to integers and calculate modifiers
     for stat in range(len(stats)):
         stats[stat] = int(stats[stat])
         modifier = ((stats[stat] - 10) / 2)
@@ -66,4 +67,62 @@ def addCharacter(name, stats, server):
 
     with open(f'.\\servers\\{server}.json', 'w') as f:
         json.dump(characters, f)
+    return True
+
+
+def updateSaves(name: str, saves: list[str], server: str) -> bool:
+    """Search JSON file for character, then update save values"""
+    for save in range(len(saves)):
+        saves[save] = int(saves[save])
+
+    if os.path.isfile(f'.\\servers\\{server}.json'):
+        with open(f'.\\servers\\{server}.json') as f:
+            characters = json.load(f)
+    else:
+        return False
+    
+    update = next((character for character in characters if character["name"] == name), None)
+
+    if not update:
+        return False
+    
+    update["str_save"] = saves[0]
+    update["dex_save"] = saves[1]
+    update["con_save"] = saves[2]
+    update["int_save"] = saves[3]
+    update["wis_save"] = saves[4]
+    update["cha_save"] = saves[5]
+
+    with open(f'.\\servers\\{server}.json', 'w') as f:
+        json.dump(characters, f)
+
+    return True
+
+
+def updateStats(name: str, stats: list[str], server: str) -> bool:
+    """Search JSON file for character, then update save values"""
+    for stat in range(len(stats)):
+        stats[stat] = int(stats[stat])
+
+    if os.path.isfile(f'.\\servers\\{server}.json'):
+        with open(f'.\\servers\\{server}.json') as f:
+            characters = json.load(f)
+    else:
+        return False
+    
+    update = next((character for character in characters if character["name"] == name), None)
+
+    if not update:
+        return False
+    
+    update["strength"] = stats[0]
+    update["dexterity"] = stats[1]
+    update["constitution"] = stats[2]
+    update["intelligence"] = stats[3]
+    update["wisdom"] = stats[4]
+    update["charisma"] = stats[5]
+
+    with open(f'.\\servers\\{server}.json', 'w') as f:
+        json.dump(characters, f)
+
     return True
