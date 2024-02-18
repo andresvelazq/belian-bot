@@ -8,11 +8,12 @@ Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.h
 - Character creation and storage
 - Update saves
 - Update stats
-- Update proficiencies
 
 ### Planned
-- Add hp value
+- **Update proficiencies**
+- **Add hp value**
 - Saving throws for each stat
+- Take damage/heal
 - Add attacks/weapons
 - Show player the character stats
 - Hide character sheet from players that don't have permission
