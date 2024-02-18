@@ -1,3 +1,5 @@
+import glob
+import os
 import discord
 from discord.ext import commands
 from discord import app_commands
@@ -17,7 +19,10 @@ async def on_ready():
         servers += '' if not servers else  ', '
         servers += guild.name
 
-    await bot.load_extension('slash.character')
+    for slash_name in glob.glob("slash\\*.py"):
+        if slash_name != "__init__.py":
+            await bot.load_extension(slash_name[:-3].replace('\\', '.'))
+
     bot.tree.copy_global_to(guild=discord.Object(id=settings.BOT_TESTER))
     await bot.tree.sync(guild=discord.Object(id=settings.BOT_TESTER))
     print(f'I have logged into {servers}.')
