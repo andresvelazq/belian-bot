@@ -8,10 +8,10 @@ Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.h
 - Character creation and storage
 - Update saves
 - Update stats
+- Update skill proficiencies
 
 ### Planned
-- **Update proficiencies**
-- **Add hp value**
+- *Add hp value*
 - Saving throws for each stat
 - Take damage/heal
 - Add attacks/weapons
