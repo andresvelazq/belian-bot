@@ -9,9 +9,9 @@ Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.h
 - Update saves
 - Update stats
 - Update skill proficiencies
+- HP manipulation
 
 ### Planned
-- *Add hp value*
 - Saving throws for each stat
 - Take damage/heal
 - Add attacks/weapons
