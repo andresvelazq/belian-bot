@@ -17,7 +17,8 @@ def addCharacter(name: str, stats: list[str], server: str) -> bool:
     characters = []
     character = {
         "name": name,
-        "hp": 0,
+        "max_hp": 0,
+        "current_hp": 0,
         "strength": stats[0],
         "dexterity": stats[1],
         "constitution": stats[2],
@@ -261,6 +262,78 @@ def chas_update(name: str, cha_skills: list[str], server: str) -> bool:
     update["intimidation"] = cha_skills[1]
     update["performance"] = cha_skills[2]
     update["persuasion"] = cha_skills[3]
+
+    with open(file, 'w') as f:
+        json.dump(characters, f)
+
+    return True
+
+def update_HP(name: str, hp: str, server: str) -> bool:
+    """Adds max HP stat for a character and matches current HP to it"""
+    file = f'.\\servers\\{server}.json'
+    hp = int(hp)
+
+    if os.path.isfile(file):
+        with open(file) as f:
+            characters = json.load(f)
+    else:
+        return False
+    
+    update = next((character for character in characters if character["name"] == name), None)
+
+    if not update:
+        return False
+    
+    update['max_hp'] = hp
+    update['current_hp'] = hp
+
+    with open(file, 'w') as f:
+        json.dump(characters, f)
+
+    return True
+
+def damage(name: str, damage: str, server: str) -> tuple[bool, int]:
+    """Subtracts damage from health"""
+    file = f'.\\servers\\{server}.json'
+    damage = int(damage)
+
+    if os.path.isfile(file):
+        with open(file) as f:
+            characters = json.load(f)
+    else:
+        return False, 0
+    
+    update = next((character for character in characters if character["name"] == name), None)
+
+    if not update:
+        return False, 0
+    
+    new_health = update["current_hp"] - damage
+    update["current_hp"] = new_health if new_health > 0 else 0
+
+    with open(file, 'w') as f:
+        json.dump(characters, f)
+
+    return True, new_health
+
+def heal(name: str, heal: str, server: str) -> bool:
+    """Adds max HP stat for a character and matches current HP to it"""
+    file = f'.\\servers\\{server}.json'
+    heal = int(heal)
+
+    if os.path.isfile(file):
+        with open(file) as f:
+            characters = json.load(f)
+    else:
+        return False
+    
+    update = next((character for character in characters if character["name"] == name), None)
+
+    if not update:
+        return False
+    
+    new_health = update["current_hp"] + heal
+    update["current_hp"] = new_health if new_health < update["max_hp"] else update["max_hp"]
 
     with open(file, 'w') as f:
         json.dump(characters, f)
