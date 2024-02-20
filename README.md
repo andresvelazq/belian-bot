@@ -13,9 +13,11 @@ Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.h
 - Saving throws for each stat
 - Roll skill checks
 - Custom dice roll
+- Protect character from being modified by other players
 
 ### Planned
 - Add attacks/weapons
 - Show player the character stats
-- Hide character sheet from players that don't have permission
+- Allow character creator to view stats
+    - Allow DM to view character's stats
 - Change storage to database instead of json files

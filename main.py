@@ -31,11 +31,11 @@ async def on_ready():
     name="roll",
     description="Roll some dice",
 )
-async def test(interaction: discord.Interaction, num_dice: str, d: str):
+async def test(interaction: discord.Interaction, num_dice: int, d: int):
     """Roll a custom number of dice"""
-    if num_dice.isnumeric() and d.isnumeric():
-        rolls = roll.xdy(int(num_dice), int(d))
-        await interaction.response.send_message(rolls)
+    if num_dice > 0 and d > 0:
+        rolls = roll.xdy(num_dice, d)
+        await interaction.response.send_message(f'{num_dice}d{d} : {rolls}')
     else:
         await interaction.response.send_message("Why are you like this?")
 

@@ -24,10 +24,13 @@ class StrModal(discord.ui.Modal, title="Athletics"):
         if not verify.verifyStats(self.athletics):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_update.athletics(self.name, self.athletics, interaction.guild.name):
+            outcome = character_update.athletics(self.name, self.athletics, interaction.guild.name, interaction.user.id)
+            if outcome == 1:
                 await interaction.response.send_message("Athletics updated.")
-            else:
+            elif outcome == 0:
                 await interaction.response.send_message(f"Please create {self.name} first")
+            else:
+                await interaction.response.send_message(f"{self.name} does not belong to you.")
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         traceback.print_tb(error.__traceback__)
@@ -66,10 +69,13 @@ class DexModal(discord.ui.Modal, title="Dexterity Skills"):
         if not verify.verifyStats(dex_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_update.dexs_update(self.name, dex_skills, interaction.guild.name):
+            outcome =character_update.dexs_update(self.name, dex_skills, interaction.guild.name, interaction.user.id)
+            if outcome == 1:
                 await interaction.response.send_message("Dexterity skills updated.")
-            else:
+            elif outcome == 0:
                 await interaction.response.send_message(f"Please create {self.name} first")
+            else:
+                await interaction.response.send_message(f"{self.name} does not belong to you.")
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         traceback.print_tb(error.__traceback__)
@@ -124,10 +130,13 @@ class IntModal(discord.ui.Modal, title="Intelligence Skills"):
         if not verify.verifyStats(int_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_update.ints_update(self.name, int_skills, interaction.guild.name):
+            outcome = character_update.ints_update(self.name, int_skills, interaction.guild.name, interaction.user.id)
+            if outcome == 1:
                 await interaction.response.send_message("Intelligence skills updated.")
-            else:
+            elif outcome == 0:
                 await interaction.response.send_message(f"Please create {self.name} first")
+            else:
+                await interaction.response.send_message(f"{self.name} does not belong to you.")
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         traceback.print_tb(error.__traceback__)
@@ -182,10 +191,13 @@ class WisModal(discord.ui.Modal, title="Wisdom Skills"):
         if not verify.verifyStats(wis_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_update.wiss_update(self.name, wis_skills, interaction.guild.name):
+            outcome = character_update.wiss_update(self.name, wis_skills, interaction.guild.name, interaction.user.id)
+            if outcome == 1:
                 await interaction.response.send_message("Wisdom skills updated.")
-            else:
+            elif outcome == 0:
                 await interaction.response.send_message(f"Please create {self.name} first")
+            else:
+                await interaction.response.send_message(f"{self.name} does not belong to you.")
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         traceback.print_tb(error.__traceback__)
@@ -232,10 +244,13 @@ class ChaModal(discord.ui.Modal, title="Charisma Skills"):
         if not verify.verifyStats(cha_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_update.chas_update(self.name, cha_skills, interaction.guild.name):
+            outcome = character_update.chas_update(self.name, cha_skills, interaction.guild.name, interaction.user.id)
+            if outcome == 1:
                 await interaction.response.send_message("Charisma skills updated.")
-            else:
+            elif outcome == 0:
                 await interaction.response.send_message(f"Please create {self.name} first")
+            else:
+                await interaction.response.send_message(f"{self.name} does not belong to you.")
 
     async def on_error(self, interaction: discord.Interaction, error: Exception) -> None:
         traceback.print_tb(error.__traceback__)
