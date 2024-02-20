@@ -1,16 +1,15 @@
 import glob
-import os
+import roll
 import discord
 from discord.ext import commands
 from discord import app_commands
-
 import settings
+
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='%', intents=intents)
-
 
 @bot.event
 async def on_ready():
@@ -29,13 +28,16 @@ async def on_ready():
 
 
 @bot.tree.command(
-    name="test",
-    description="Just a little test to make sure things are ok",
+    name="roll",
+    description="Roll some dice",
 )
-async def test(interaction: discord.Interaction):
-    """Placeholder command to test functionality before implementing"""
-    print("Received.")
-    await interaction.response.send_message('Active.')
+async def test(interaction: discord.Interaction, num_dice: str, d: str):
+    """Roll a custom number of dice"""
+    if num_dice.isnumeric() and d.isnumeric():
+        rolls = roll.xdy(int(num_dice), int(d))
+        await interaction.response.send_message(rolls)
+    else:
+        await interaction.response.send_message("Why are you like this?")
 
 
 bot.run(settings.DISCORD_TOKEN)

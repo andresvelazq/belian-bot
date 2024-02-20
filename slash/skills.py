@@ -1,9 +1,10 @@
 import traceback
 import typing
 import discord
-import character_info
+import character_update
 import verify
 from discord import app_commands
+
 
 class StrModal(discord.ui.Modal, title="Athletics"):
     def __init__(self, name: str):
@@ -23,7 +24,7 @@ class StrModal(discord.ui.Modal, title="Athletics"):
         if not verify.verifyStats(self.athletics):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_info.athletics(self.name, self.athletics, interaction.guild.name):
+            if character_update.athletics(self.name, self.athletics, interaction.guild.name):
                 await interaction.response.send_message("Athletics updated.")
             else:
                 await interaction.response.send_message(f"Please create {self.name} first")
@@ -65,7 +66,7 @@ class DexModal(discord.ui.Modal, title="Dexterity Skills"):
         if not verify.verifyStats(dex_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_info.dexs_update(self.name, dex_skills, interaction.guild.name):
+            if character_update.dexs_update(self.name, dex_skills, interaction.guild.name):
                 await interaction.response.send_message("Dexterity skills updated.")
             else:
                 await interaction.response.send_message(f"Please create {self.name} first")
@@ -123,7 +124,7 @@ class IntModal(discord.ui.Modal, title="Intelligence Skills"):
         if not verify.verifyStats(int_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_info.ints_update(self.name, int_skills, interaction.guild.name):
+            if character_update.ints_update(self.name, int_skills, interaction.guild.name):
                 await interaction.response.send_message("Intelligence skills updated.")
             else:
                 await interaction.response.send_message(f"Please create {self.name} first")
@@ -181,7 +182,7 @@ class WisModal(discord.ui.Modal, title="Wisdom Skills"):
         if not verify.verifyStats(wis_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_info.wiss_update(self.name, wis_skills, interaction.guild.name):
+            if character_update.wiss_update(self.name, wis_skills, interaction.guild.name):
                 await interaction.response.send_message("Wisdom skills updated.")
             else:
                 await interaction.response.send_message(f"Please create {self.name} first")
@@ -231,7 +232,7 @@ class ChaModal(discord.ui.Modal, title="Charisma Skills"):
         if not verify.verifyStats(cha_skills):
             await interaction.response.send_message("Those aren't even numbers...")
         else:
-            if character_info.chas_update(self.name, cha_skills, interaction.guild.name):
+            if character_update.chas_update(self.name, cha_skills, interaction.guild.name):
                 await interaction.response.send_message("Charisma skills updated.")
             else:
                 await interaction.response.send_message(f"Please create {self.name} first")
@@ -240,7 +241,7 @@ class ChaModal(discord.ui.Modal, title="Charisma Skills"):
         traceback.print_tb(error.__traceback__)
 
 @app_commands.command(
-        name="skill",
+        name="updateskill",
         description="Update skill bonuses by related stat"
 )
 async def update_skills(interaction: discord.Interaction, name:str,
@@ -269,6 +270,7 @@ async def update_skills(interaction: discord.Interaction, name:str,
             await interaction.response.send_modal(modal)
         case _:
             await interaction.response.send_message("...How?")
+
 
 async def setup(bot):
     bot.tree.add_command(update_skills)

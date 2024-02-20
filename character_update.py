@@ -1,6 +1,7 @@
 import json
 import os
 
+
 def addCharacter(name: str, stats: list[str], server: str) -> bool:
     """Creates JSON file for server if none, adds character if not already added"""
     file = f'.\\servers\\{server}.json'
@@ -17,20 +18,20 @@ def addCharacter(name: str, stats: list[str], server: str) -> bool:
     characters = []
     character = {
         "name": name,
-        "max_hp": 0,
-        "current_hp": 0,
+        "max hp": 0,
+        "current hp": 0,
         "strength": stats[0],
         "dexterity": stats[1],
         "constitution": stats[2],
         "intelligence": stats[3],
         "wisdom": stats[4],
         "charisma": stats[5],
-        "str_save": mods[0],
-        "dex_save": mods[1],
-        "con_save": mods[2],
-        "int_save": mods[3],
-        "wis_save": mods[4],
-        "cha_save": mods[5],
+        "strength save": mods[0],
+        "dexterity save": mods[1],
+        "constituion save": mods[2],
+        "intelligence save": mods[3],
+        "wisdom save": mods[4],
+        "charisma save": mods[5],
         "acrobatics": mods[1],
         "animal handling": mods[4],
         "arcana": mods[3],
@@ -89,12 +90,12 @@ def updateSaves(name: str, saves: list[str], server: str) -> bool:
     if not update:
         return False
     
-    update["str_save"] = saves[0]
-    update["dex_save"] = saves[1]
-    update["con_save"] = saves[2]
-    update["int_save"] = saves[3]
-    update["wis_save"] = saves[4]
-    update["cha_save"] = saves[5]
+    update["strength save"] = saves[0]
+    update["dexterity save"] = saves[1]
+    update["constitution save"] = saves[2]
+    update["intelligence save"] = saves[3]
+    update["wisdom save"] = saves[4]
+    update["charisma save"] = saves[5]
 
     with open(file, 'w') as f:
         json.dump(characters, f)
@@ -130,6 +131,7 @@ def updateStats(name: str, stats: list[str], server: str) -> bool:
         json.dump(characters, f)
 
     return True
+
 
 def athletics(name: str, athletics: str, server: str) -> bool:
     """Search JSON file for character, then update athletics bonus"""
@@ -182,6 +184,7 @@ def dexs_update(name: str, dex_skills: list[str], server: str) -> bool:
 
     return True
 
+
 def ints_update(name: str, int_skills: list[str], server: str) -> bool:
     """Search JSON file for character, then update intelligence bonuses"""
     file = f'.\\servers\\{server}.json'
@@ -210,6 +213,7 @@ def ints_update(name: str, int_skills: list[str], server: str) -> bool:
         json.dump(characters, f)
 
     return True
+
 
 def wiss_update(name: str, wis_skills: list[str], server: str) -> bool:
     """Search JSON file for character, then update dexterity bonuses"""
@@ -240,6 +244,7 @@ def wiss_update(name: str, wis_skills: list[str], server: str) -> bool:
 
     return True
 
+
 def chas_update(name: str, cha_skills: list[str], server: str) -> bool:
     """Search JSON file for character, then update dexterity bonuses"""
     file = f'.\\servers\\{server}.json'
@@ -268,6 +273,7 @@ def chas_update(name: str, cha_skills: list[str], server: str) -> bool:
 
     return True
 
+
 def update_HP(name: str, hp: str, server: str) -> bool:
     """Adds max HP stat for a character and matches current HP to it"""
     file = f'.\\servers\\{server}.json'
@@ -284,13 +290,14 @@ def update_HP(name: str, hp: str, server: str) -> bool:
     if not update:
         return False
     
-    update['max_hp'] = hp
-    update['current_hp'] = hp
+    update['max hp'] = hp
+    update['current hp'] = hp
 
     with open(file, 'w') as f:
         json.dump(characters, f)
 
     return True
+
 
 def damage(name: str, damage: str, server: str) -> tuple[bool, int]:
     """Subtracts damage from health"""
@@ -308,13 +315,14 @@ def damage(name: str, damage: str, server: str) -> tuple[bool, int]:
     if not update:
         return False, 0
     
-    new_health = update["current_hp"] - damage
-    update["current_hp"] = new_health if new_health > 0 else 0
+    new_health = update["current hp"] - damage
+    update["current hp"] = new_health if new_health > 0 else 0
 
     with open(file, 'w') as f:
         json.dump(characters, f)
 
     return True, new_health
+
 
 def heal(name: str, heal: str, server: str) -> bool:
     """Adds max HP stat for a character and matches current HP to it"""
@@ -332,8 +340,8 @@ def heal(name: str, heal: str, server: str) -> bool:
     if not update:
         return False
     
-    new_health = update["current_hp"] + heal
-    update["current_hp"] = new_health if new_health < update["max_hp"] else update["max_hp"]
+    new_health = update["current hp"] + heal
+    update["current hp"] = new_health if new_health < update["max hp"] else update["max hp"]
 
     with open(file, 'w') as f:
         json.dump(characters, f)

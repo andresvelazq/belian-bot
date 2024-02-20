@@ -1,7 +1,8 @@
 import discord
-import character_info
+import character_update
 import verify
 from discord import app_commands
+
 
 @app_commands.command(
     name="add",
@@ -15,7 +16,7 @@ async def create_character(interaction: discord.Interaction, name: str,
     if not verify.verifyStats(stats):
         await interaction.response.send_message(f"Those aren't even numbers...")
     else:
-        if character_info.addCharacter(name, stats, interaction.guild.name):
+        if character_update.addCharacter(name, stats, interaction.guild.name):
             await interaction.response.send_message(f"{name} created.")
         else:
             await interaction.response.send_message(f"Nice try, {name} already exists.")
@@ -33,7 +34,7 @@ async def update_saves(interaction: discord.Interaction, name: str,
     if not verify.verifyStats(saves):
         await interaction.response.send_message("Those aren't even numbers...")
     else:
-        if character_info.updateSaves(name, saves, interaction.guild.name):
+        if character_update.updateSaves(name, saves, interaction.guild.name):
             await interaction.response.send_message(f"{name}'s saves have been updated")
         else:
             await interaction.response.send_message(f"Please create {name} first.")
@@ -51,7 +52,7 @@ async def update_stats(interaction: discord.Interaction, name: str,
     if not verify.verifyStats(stats):
         await interaction.response.send_message("Those aren't even numbers...")
     else:
-        if character_info.updateStats(name, stats, interaction.guild.name):
+        if character_update.updateStats(name, stats, interaction.guild.name):
             await interaction.response.send_message(f"{name}'s stats have been updated")
         else:
             await interaction.response.send_message(f"Please create {name} first.")
@@ -66,7 +67,7 @@ async def update_hp(interaction: discord.Interaction, name: str, hp: str):
     if not verify.verifyStats(hp):
         await interaction.response.send_message("That's not a number...")
     else:
-        if character_info.update_HP(name, hp, interaction.guild.name):
+        if character_update.update_HP(name, hp, interaction.guild.name):
             await interaction.response.send_message(f"{name}'s max HP has been set.")
         else:
             await interaction.response.send_message(f"Please create {name} first.")
@@ -81,7 +82,7 @@ async def damage(interaction: discord.Interaction, name: str, damage: str):
     if not verify.verifyStats(damage):
         await interaction.response.send_message("That's not a number...")
     else:
-        (exists, alive) = character_info.damage(name, damage, interaction.guild.name)
+        (exists, alive) = character_update.damage(name, damage, interaction.guild.name)
         if exists:
             if alive <= 0:
                 await interaction.response.send_message(f"{name} has taken {damage} damage and died. :skull:")
@@ -100,7 +101,7 @@ async def heal(interaction: discord.Interaction, name: str, heal: str):
     if not verify.verifyStats(heal):
         await interaction.response.send_message("That's not a number...")
     else:
-        if character_info.heal(name, heal, interaction.guild.name):
+        if character_update.heal(name, heal, interaction.guild.name):
             await interaction.response.send_message(f"{name} has healed ||redacted|| health.")
         else:
             await interaction.response.send_message(f"Please create {name} first.")

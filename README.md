@@ -10,10 +10,11 @@ Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.h
 - Update stats
 - Update skill proficiencies
 - HP manipulation
+- Saving throws for each stat
+- Roll skill checks
+- Custom dice roll
 
 ### Planned
-- Saving throws for each stat
-- Take damage/heal
 - Add attacks/weapons
 - Show player the character stats
 - Hide character sheet from players that don't have permission
