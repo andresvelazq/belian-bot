@@ -1,6 +1,5 @@
 import discord
 import character_update
-import verify
 from discord import app_commands
 
 

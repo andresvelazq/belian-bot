@@ -1,10 +1,14 @@
 from random import randint
 
 
-def onedymod(y: int, mod: int) -> int:
+def oned20mod(mod: int) -> int:
     """Roll one dice with y faces and add a modifier"""
-    result = randint(1,y) 
-    print(f'{result} + {mod}') # for testing purposes, will remove later
+    result = randint(1,20) 
+    if result == 20:
+        return 100 # critical success
+    elif result == 1:
+        return -100 # critical failure
+
     return result + mod
 
 

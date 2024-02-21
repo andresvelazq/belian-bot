@@ -377,3 +377,36 @@ def heal(name: str, heal: int, server: str) -> bool:
         json.dump(characters, f)
 
     return True
+
+
+def update_attack(name: str, attack: str, attack_info: list[int], server: str,
+                   user: int) -> int:
+    """Adds to or updates a character's list of attacks"""
+    file = f'.\\servers\\{server}.json'
+
+    attack_add = {
+        "attack": attack,
+        "hit mod": attack_info[0],
+        "num dice": attack_info[1],
+        "dice": attack_info[2],
+        "plus": attack_info[3]
+    }
+
+    if os.path.isfile(file):
+        with open(file) as f:
+            characters = json.load(f)
+    else:
+        return 0
+    
+    update = next((character for character in characters if character["name"] == name), None)
+
+    if not update:
+        return 0
+    
+    if update["created by"] != user:
+        return 2
+
+    with open(file, 'w') as f:
+        json.dump(characters, f)
+
+    return 1

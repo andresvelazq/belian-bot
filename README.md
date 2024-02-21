@@ -5,18 +5,19 @@ This is an idea I thought of while playing DnD with my friends on Discord. Gamep
 Using Python and [Discord.py](https://discordpy.readthedocs.io/en/stable/index.html#)
 
 ### Implemented
-- Character creation and storage
-- Update saves
-- Update stats
-- Update skill proficiencies
-- HP manipulation
-- Saving throws for each stat
-- Roll skill checks
-- Custom dice roll
+- Character information
+    - Update saves
+    - Update stats
+    - Update skill proficiencies
+    - HP manipulation
+    - Saving throws for each stat
+    - Add attacks to characters
+- Dice rolls
+    - Roll skill checks
+    - Custom dice roll
 - Protect character from being modified by other players
 
 ### Planned
-- Add attacks/weapons
 - Show player the character stats
 - Allow character creator to view stats
     - Allow DM to view character's stats

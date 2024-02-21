@@ -31,6 +31,7 @@ async def on_ready():
     name="roll",
     description="Roll some dice",
 )
+@app_commands.rename(num_dice="# of dice")
 async def test(interaction: discord.Interaction, num_dice: int, d: int):
     """Roll a custom number of dice"""
     if num_dice > 0 and d > 0:
