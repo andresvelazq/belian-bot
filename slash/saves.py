@@ -15,10 +15,10 @@ async def roll_save(interaction: discord.Interaction, name: str,
     """Rolls the saving throw for the specified stat"""
     try:
         modifier = get_character.saving_throw(name, save, interaction.guild.name)
-        result = roll.onedymod(20, modifier)
-        if result == 20:
+        result = roll.onedymod(modifier)
+        if result == 100:
             await interaction.response.send_message(f':white_check_mark: {name} crit their {save} save!')
-        elif result == 1:
+        elif result == -100:
             await interaction.response.send_message(f':x: {name} crit failed their {save} save!')
         else:
             await interaction.response.send_message(f'{name} rolled a {save} save of {result}')

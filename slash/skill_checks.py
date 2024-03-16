@@ -19,10 +19,10 @@ async def skill_check(interaction: discord.Interaction, name: str,
     """Rolls the saving throw for the specified stat"""
     try:
         modifier = get_character.skill_mod(name, skill, interaction.guild.name)
-        result = roll.onedymod(20, modifier)
-        if result == 20:
+        result = roll.oned20mod(modifier)
+        if result == 100:
             await interaction.response.send_message(f':white_check_mark: {name} crit their {skill} check!')
-        elif result == 1:
+        elif result == -100:
             await interaction.response.send_message(f':x: {name} crit failed their {skill} check!')
         else:
             await interaction.response.send_message(f'{name} rolled a {result} for {skill} check.')

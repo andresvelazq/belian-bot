@@ -9,13 +9,13 @@ from discord import app_commands
     name="addatk",
     description="Add an attack to a specified character"
 )
-@app_commands.rename(damage_numdice="damage", damage_dice="d", damage_plus="+")
+@app_commands.rename(damage_numdice="damage", damage_dice="d", damage_plus="plus")
 async def add_attack(interaction: discord.Interaction, name: str, attack: str,
                      hit: int, damage_numdice: int, damage_dice: int,
                      damage_plus: int):
     """Adds an attack and it's roll information to a character"""
     attack_info = [hit, damage_numdice, damage_dice, damage_plus]
-    outcome = character_update.update_attack(name, attack, attack_info, interaction.guild.name)
+    outcome = character_update.update_attack(name, attack, attack_info, interaction.guild.name, interaction.user.id)
     if outcome == 1:
         await interaction.response.send_message(f"{name}'s attacks have been updated.")
     elif outcome == 0:
@@ -35,12 +35,14 @@ async def get_attack(interaction: discord.Interaction, name: str, attack: str):
         attack_info = get_character.attack(name, attack, interaction.guild.name) 
         hit = roll.oned20mod(20, attack_info["hit mod"])
         if hit == 100:
-            # TODO: damage calculation 
+            damage = roll.xdy(attack_info["num dice"] * 2, attack["dice"]) + attack_info["plus"]
             await interaction.response.send_message(f'**CRIT!!!**')
         if hit == -100:
             await interaction.response.send_message(f'**CRIT MISS...***')
         else:
-            message = await interaction.response.send_message(f'Does a {hit} hit?')
+            damage = roll.xdy(attack_info["num dice"] * 2, attack["dice"]) + attack_info["plus"]
+            message = await interaction.response.send_message(f'Does a {hit} hit?\n' +
+                                                              f'{attack_info["num dice"]}d{attack["dice"]+attack_info["plus"]} = {damage}')
             
             for react in yesno:
                 await message.add_reaction(react)
@@ -56,3 +58,4 @@ async def get_attack(interaction: discord.Interaction, name: str, attack: str):
 
 async def setup(bot):
     bot.tree.add_command(add_attack)
+    bot.tree.add_command(get_attack)

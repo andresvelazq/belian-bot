@@ -22,8 +22,9 @@ async def on_ready():
         if slash_name != "__init__.py":
             await bot.load_extension(slash_name[:-3].replace('\\', '.'))
 
-    bot.tree.copy_global_to(guild=discord.Object(id=settings.BOT_TESTER))
-    await bot.tree.sync(guild=discord.Object(id=settings.BOT_TESTER))
+    for guild in settings.GUILDS:
+        bot.tree.copy_global_to(guild=discord.Object(id=guild))
+        await bot.tree.sync(guild=discord.Object(id=guild))
     print(f'I have logged into {servers}.')
 
 
@@ -31,7 +32,7 @@ async def on_ready():
     name="roll",
     description="Roll some dice",
 )
-@app_commands.rename(num_dice="# of dice")
+@app_commands.rename(num_dice="number_of_dice")
 async def test(interaction: discord.Interaction, num_dice: int, d: int):
     """Roll a custom number of dice"""
     if num_dice > 0 and d > 0:

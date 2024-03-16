@@ -13,4 +13,4 @@ BOT_TESTER = int(os.getenv("BOT_TESTER"))
 FRESH = int(os.getenv("FRESH"))
 
 # Servers in list
-GUILDS = [BOT_TESTER]
+GUILDS = [BOT_TESTER, FRESH]
